@@ -10186,9 +10186,12 @@ flatpak_dir_install_bundle (FlatpakDir         *self,
     {
       const char *installation = flatpak_dir_get_id (self);
 
+      guint32 install_flags = 0;
+      if (reinstall)
+        install_flags |= FLATPAK_HELPER_INSTALL_BUNDLE_FLAGS_REINSTALL;
       if (!flatpak_dir_system_helper_call_install_bundle (self,
                                                           flatpak_file_get_path_cached (file),
-                                                          0, remote,
+                                                          install_flags, remote,
                                                           installation ? installation : "",
                                                           &ref_str,
                                                           cancellable,
